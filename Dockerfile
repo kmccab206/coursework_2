@@ -2,7 +2,7 @@
 FROM node:7-onbuild
 
 # set maintainer
-LABEL maintainer "kmccab206@caledonian.ac.uk"
+LABEL maintainer = "kmccab206@caledonian.ac.uk"
 
 # set a health check
 HEALTHCHECK --interval=5s \
