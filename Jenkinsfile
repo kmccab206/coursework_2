@@ -7,11 +7,17 @@ pipeline {
             }
         }
          stage('Static Analysis') {
-                    steps {
-                        def scannerHome = tool 'SonarScanner';
-                            withSonarQubeEnv('SonarQube') { // If you have configured more than one global server connection, you can specify its name
-                              sh "${scannerHome}/bin/sonar-scanner"
-                    }
+            environment {
+                scanner = tool 'SonarQubeScanner'
+            }
+            steps {
+               withSonarQubeEnv('SonarQube') {
+                    sh "${scanner}/bin/sonar-scanner"
+                  }
+               timeout(time: 10, unit: 'MINUTES') {
+                              waitForQualityGate abortPipeline: true
+                          }
+                      }
+                  }
                 }
     }
-}
