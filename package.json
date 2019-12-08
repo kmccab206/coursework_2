@@ -1,0 +1,21 @@
+{
+  "name": "getintodevops-hellonode",
+  "version": "1.0.0",
+  "description": "A Hello World HTTP server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kmccab206/coursework_2.git"
+  },
+  "keywords": [
+    "node",
+    "docker",
+    "dockerfile"
+  ],
+  "author": "kmccab206@caledonian.ac.uk",
+  "license": "KGM"
+}
