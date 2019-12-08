@@ -1,26 +1,10 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:6-alpine'
-            args '-p 3000:3000 -p 5000:5000'
-        }
-    }
-    environment {
-        CI = 'true'
-    }
+    agent { docker { image 'node:6.3' } }
     stages {
-        stage('Build') {
+        stage('build') {
             steps {
-                sh 'npm install'
+                sh 'npm --version'
             }
         }
-        stage('Sonarqube') {
-            steps {
-                withSonarQubeEnv('SonarQube') {
-                    sh "SonarQube/bin/sonar-scanner"
-                }        timeout(time: 10, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
-                }
-            }
-        }
- }
+    }
+}
