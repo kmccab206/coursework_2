@@ -3,7 +3,7 @@ peline {
          stages {
                  stage('One') {
                  steps {
-                     echo 'Hi, this is Zulaikha from edureka'
+                     echo 'Hi, this is DevOps CW2'
                  }
                  }
                  stage('Two') {
@@ -11,35 +11,12 @@ peline {
                     input('Do you want to proceed?')
                  }
                  }
-                 stage('Three') {
-                 when {
-                       not {
-                            branch "master"
-                       }
-                 }
+                 stage('Three'){
                  steps {
-                       echo "Hello"
+                     echo "Running SonarQube"
                  }
                  }
-                 stage('Four') {
-                 parallel { 
-                            stage('Unit Test') {
-                           steps {
-                                echo "Running the unit test..."
-                           }
-                           }
-                            stage('Integration test') {
-                              agent {
-                                    docker {
-                                            reuseNode true
-                                            image 'ubuntu'
-                                           }
-                                    }
-                              steps {
-                                echo "Running the integration test..."
-                              }
-                           }
-                           }
-                           }
+  
               }
 }
+
