@@ -1,5 +1,5 @@
 {
-  "name": "getintodevops-hellonode",
+  "name": "devopsCWnode",
   "version": "1.0.0",
   "description": "A Hello World HTTP server",
   "main": "server.js",
