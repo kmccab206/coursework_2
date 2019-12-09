@@ -7,7 +7,6 @@ pipeline {
             }
 
             steps {
-                echo "Running SonarQube Static Code Analysis"
                 withSonarQubeEnv('SonarQube') {
                     sh "${scannerHome}/bin/sonar-scanner"
                 }
