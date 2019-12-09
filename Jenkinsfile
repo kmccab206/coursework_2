@@ -21,7 +21,12 @@ pipeline {
         }
         stage('Push Build') {
             steps {
-                echo "Pushing Build to Dockerhub"
+                docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+                    script {
+                        app.push("${env.BUILD_NUMBER}")
+                        app.push("latest")
+                    }
+                }
             }
         }
     }
