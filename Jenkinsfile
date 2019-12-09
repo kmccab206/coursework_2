@@ -2,8 +2,15 @@ pipeline {
     agent none
     stages {
         stage('SonarQube Analysis') {
-            steps {
-                echo "Testing..."
+            environment {
+                scannerHome = tool 'SonarQubeScanner'
+            }    steps {
+                echo "Running SonarQube Static Code Analysis"
+                withSonarQubeEnv('sonarqube') {
+                    sh "${scannerHome}/bin/sonar-scanner"
+                }        timeout(time: 10, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
             }
         }
         stage('Build') {
