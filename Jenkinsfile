@@ -11,7 +11,7 @@ pipeline {
                     sh "${scannerHome}/bin/sonar-scanner"
                 }
 
-                timeout(time: 10, unit: 'MINUTES') {
+                timeout(time: 12, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
                 }
             }
@@ -19,7 +19,7 @@ pipeline {
         stage('Build') {
             agent { docker { image 'node:6.3' } }
             steps {
-                sh 'npm --version'
+                sh 'npm start'
             }
         }
         stage('Package Build') {
