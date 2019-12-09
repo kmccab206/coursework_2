@@ -2,20 +2,10 @@ pipeline {
     agent any
     stages {
         stage('SonarQube Analysis') {
-            environment {
-                scannerHome = tool 'SonarQubeScanner'
-            }
-
             steps {
-                withSonarQubeEnv('SonarQube') {
-                    sh "${scannerHome}/bin/sonar-scanner"
-                }
-
-                timeout(time: 10, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
+                echo "Testing ..."
                 }
             }
-        }
         stage('Build') {
             agent { docker { image 'node:6.3' } }
             steps {
@@ -24,7 +14,7 @@ pipeline {
         }
         stage('Package Build') {
             steps {
-                echo "Packaging Successful Build..."
+                app = docker.build("devopsCWnode")
             }
         }
         stage('Push Build') {
