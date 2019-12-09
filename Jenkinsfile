@@ -1,5 +1,5 @@
 pipeline {
-    agent any {
+    agent none {
         stages {
             stage('SonarQube Analysis') {
                 steps {
@@ -7,6 +7,7 @@ pipeline {
                 }
             }
             stage('Build') {
+                agent { docker { image 'node:6.3' } }
                 steps {
                     sh 'npm --version'
                 }
