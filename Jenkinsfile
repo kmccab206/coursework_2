@@ -14,7 +14,9 @@ pipeline {
         }
         stage('Package Build') {
             steps {
-                app = docker.build("devopsCWnode")
+                script {
+                    app = docker.build("devopsCWnode")
+                }
             }
         }
         stage('Push Build') {
