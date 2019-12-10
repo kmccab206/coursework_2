@@ -25,7 +25,7 @@ pipeline {
         stage('Package Build') {
             steps {
                 script {
-                    app = docker.build("kmccab206/coursework_2")
+                    app = docker.build("kmccab206/coursework2")
                 }
             }
         }
