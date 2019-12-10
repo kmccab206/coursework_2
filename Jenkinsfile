@@ -41,7 +41,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'ssh cwuser@40.77.63.237'
+                sh 'ssh cwuser@52.229.228.13'
             }
         }
     }
