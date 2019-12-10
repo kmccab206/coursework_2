@@ -19,7 +19,7 @@ pipeline {
         stage('Build') {
             agent { docker { image 'node:6.3' } }
             steps {
-                sh 'npm install'
+                sh 'npm run build --prod'
             }
         }
         stage('Package Build') {
