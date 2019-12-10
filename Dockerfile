@@ -11,3 +11,7 @@ HEALTHCHECK --interval=5s \
 
 # tell docker what port to expose
 EXPOSE 8080
+
+COPY server.js .
+
+CMD node server.js
