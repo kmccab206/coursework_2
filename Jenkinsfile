@@ -39,10 +39,5 @@ pipeline {
                 }
             }
         }
-        stage('Test') {
-            steps {
-                sh 'ssh cwuser@52.229.228.13'
-            }
-        }
     }
 }
