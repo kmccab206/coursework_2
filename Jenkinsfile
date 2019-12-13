@@ -53,7 +53,7 @@ pipeline {
             //Deployment stage where the latest image is automatically deployed on the prod VM
             steps {
                 echo 'Starting Deployment...'
-                sh 'ssh cwuser@52.176.53.14 kubectl set image deployments/DevOpsCW2 web=docker.io/kmccab206/coursework2:latest'
+                sh 'ssh cwuser@40.77.98.95 kubectl set image deployments/DevOpsCW2 web=docker.io/kmccab206/coursework2:latest'
             }
         }
     }
