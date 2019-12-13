@@ -1,4 +1,4 @@
-- name: Start Minikube on Prod VM
+- name: Create Azure VM
   hosts: localhost
   connection: local
 
@@ -7,7 +7,14 @@
     myVM: ansible-prod-node
     
   tasks:
-   
+
   - name: Start Minikube
-    shell: minikube start --vm-driver=virtualbox
+    command: minikube start --vm-driver=virtualbox
     become: true
+
+  - name: Deploy
+    command: kubectl apply -f home/cwuser/deployment.yml
+
+  - name: Service
+    command: kubectl apply -f home/cwuser/service.yml
+

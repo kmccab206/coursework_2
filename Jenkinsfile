@@ -21,11 +21,8 @@ pipeline {
         }
         stage('Build') {
             //Build stage where the project is built
+            echo 'Starting Build stage...'
             agent { docker { image 'node:6.3' } }
-            steps {
-                echo 'Starting Project Build...'
-                sh 'npm install'
-            }
         }
         stage('Package Build') {
             //Package stage, using Docker to package the build (create a docker image)
@@ -48,6 +45,11 @@ pipeline {
                     }
                 }
             }
+        }
+        stage('Deploy to Production') {
+            //Deployment stage where the latest image is automatically deployed on the prod VM
+            echo 'Starting Deployment...'
+            sh 'ssh cwuser@52.176.53.14 kubectl set image deployments/DevOpsCW2 web=docker.io/kmccab206/coursework2:latest'
         }
     }
 }

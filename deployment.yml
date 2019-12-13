@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devopscw
+  labels:
+    app: web #server.js is a web application
+spec:
+  replicas: 5 #indicates the number of pods
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+        - name: web
+          image: docker.io/kmccab206/coursework2:latest
+          ports:
+            - containerPort: 80

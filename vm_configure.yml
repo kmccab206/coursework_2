@@ -1,3 +1,4 @@
+#Automate the configuration of the production VM using ansible
 - name: Configure Node VM
   hosts: azure
   user: cwuser
@@ -8,7 +9,7 @@
     myVM: ansible-prod-node
 
   tasks:
-
+#Install the various required packages
   - name: Install Various Packages
     apt:
       update_cache: yes
@@ -20,6 +21,7 @@
       - python-dev
       - python-pip
 
+#Install Ansible on the production VM
   - name: Install Ansible for Azure
     command: pip install ansible[azure]
 
@@ -27,15 +29,39 @@
       path: /home/cwuser/minikube_node.sh
     register: result
 
-  - name: Copy minikube_node.sh to Node
+#Copy minikube installation script the the production VM
+  - name: Copy minikube_node.sh to production VM
     copy:
       src: ./minikube_node.sh
       dest: /home/cwuser/minikube_node.sh
     when: result.stat.exists == false
 
+#Change script permissions so it can be executed
   - name: Set minikube.sh permissions
     command: chmod +x /home/cwuser/minikube_node.sh
 
+#Execute the installation Script
   - name: Run minikube installation script
     command: sudo /home/cwuser/minikube_node.sh
+
+#Copy the file that starts minikube and handles the deployment and service
+  - name: Copy vm_minikubestart.yml to production VM
+    copy:
+      src: ./vm_minikubestart.yml
+      dest: /home/cwuser/vm_minikubestart.yml
+    when: result.stat.exists == false
+
+#Copy the service.yml file
+  - name: Copy service.yml to production VM
+      copy:
+        src: ./service.yml
+        dest: /home/cwuser/service.yml
+      when: result.stat.exists == false
+
+    #Copy the deployment.yml file
+  - name: Copy deployment.yml to production VM
+      copy:
+         src: ./deployment.yml
+         dest: /home/cwuser/deployment.yml
+      when: result.stat.exists == false
 
