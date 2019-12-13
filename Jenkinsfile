@@ -51,7 +51,7 @@ pipeline {
         }
         stage('Deploy to Production') {
             //Deployment stage where the latest image is automatically deployed on the prod VM
-            Steps {
+            steps {
                 echo 'Starting Deployment...'
                 sh 'ssh cwuser@52.176.53.14 kubectl set image deployments/DevOpsCW2 web=docker.io/kmccab206/coursework2:latest'
             }
