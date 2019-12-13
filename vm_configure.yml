@@ -1,0 +1,41 @@
+- name: Configure Node VM
+  hosts: azure
+  user: cwuser
+  become: yes
+
+  vars:
+    myResourceGroup: ansible
+    myVM: ansible-prod-node
+
+  tasks:
+
+  - name: Install Various Packages
+    apt:
+      update_cache: yes
+      name: "{{ packages }}"
+    vars:
+      packages:
+      - libssl-dev
+      - libffi-dev
+      - python-dev
+      - python-pip
+
+  - name: Install Ansible for Azure
+    command: pip install ansible[azure]
+
+  - stat:
+      path: /home/cwuser/minikube_node.sh
+    register: result
+
+  - name: Copy minikube_node.sh to Node
+    copy:
+      src: ./minikube_node.sh
+      dest: /home/cwuser/minikube_node.sh
+    when: result.stat.exists == false
+
+  - name: Set minikube.sh permissions
+    command: chmod +x /home/cwuser/minikube_node.sh
+
+  - name: Run minikube installation script
+    command: sudo /home/cwuser/minikube_node.sh
+

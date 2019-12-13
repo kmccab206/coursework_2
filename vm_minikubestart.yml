@@ -1,0 +1,13 @@
+- name: Start Minikube on Prod VM
+  hosts: localhost
+  connection: local
+
+  vars:
+    myResourceGroup: ansible
+    myVM: ansible-prod-node
+    
+  tasks:
+   
+  - name: Start Minikube
+    shell: minikube start --vm-driver=virtualbox
+    become: true
