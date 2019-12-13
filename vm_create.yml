@@ -11,6 +11,7 @@
     myNetworkSecurityGroup: ansible-node-nsg
     myVM: ansible-prod-node
     mySSHkey: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDlzpBnUI09bTyjbbAfyK6Uf5m8ryxU6waJ+4PL80WglJxOXDADZcdmK1is2fGZJ5sj5wgDVm84eeItl7feBcAKZkKc5NpVyWA82SoxKERkUdn32ig9/kiW9XSBxD8wPl+u8I4ZZyN+TEcY7u5haK2+MuSjJ6m90Q33baFCLPTb/+HCo/MX1XC/rKbZlu0G523wev16YCD4hTya5nKUlUa2D8IsxJGQi7uEi/7Z/JBz2TxROOAFHnN8A1h2TFmSDxaVJQq+FWjWSwfT1wPjKe1CxbBccodTXNy1+uMUvl8QPVMHD5JocAIG4iRc+0vVPQkfrr6SETsLgd5w8tngjUaf cwuser@DevOpsCW2
+    sshJenkins: ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCnmhe3jY6DJBHBk3R411i67k1rAVy4IoKJ8ukSmHk55dDILiw61e9GWRCJwAlpvY5ohyzTiuvII5dLRlMgWj5sV59067Mf6Ava0EeCbsRl58Hz9Iw5wH2QbTK/Nskcz4MACHRL7dteLCyBDsH4c3JO9zPIJyV9K8K8kmvyB6Qxsk8groqSD2ufNEsLRFzlOLN+b7MEoGt215M4BFpAWkQchhyKIoZg2r/HvlJjkQJB2nMNkmCL14saDh+Ng82gz8djcvdjNHsXw1NTaUEzx4T62Si362XGskBycAZ/Ef7pB1RuCHqu7r2ATkLynVJAR0tvSkU2l0l3xo24egHv37TVijJQCaGv8uZGM7FoKmTHRuPR/Tx1CbYXBWhNybOO4ZmFcJCfolSvbd4tdF0iTO3EzYeEI+gCCpoI0yZTb6Ymrn45kpl9PdK3Nt3DHZf7UwogfpQL3aTZN7ucdKrFH+rkTZdPP1xOIxDzowrVCChu1m5qrRmQT+jEPBFmirZ3SQw8sDquxFVAw167LPWR6GqnAuERguE+STiJiJoFkkYEo9T2pNMsjTzrzcFZl9e9V00xVdfk1zggOHaoua3qKrFTZQr6UN5Ta4JfsHKGWe0Q5CZplr+I1ilgDEJvY2aJMZZYQl6yip9ozE3KEhHJlD4SAQLeueUeAFwguz68D2CRMw== root@e68a86ba9884
 
   tasks:
 
@@ -65,6 +66,9 @@
       ssh_public_keys:
         - path: /home/cwuser/.ssh/authorized_keys
           key_data: "{{ mySSHkey }}"
+        - path: /home/cwuser/.ssh/authorized_keys
+          key_data: "{{ sshJenkins }}"
+
       network_interfaces: "{{ myNIC }}"
       image:
         offer: UbuntuServer
