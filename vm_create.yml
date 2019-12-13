@@ -75,4 +75,3 @@
   - name: Print Public IP for VM which will be created
     debug:
       msg: "The public IP is {{ output_ip_address.state.ip_address }}."
-
