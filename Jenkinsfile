@@ -1,9 +1,42 @@
 pipeline {
-    agent { docker { image 'node:6.3' } }
+    agent any
     stages {
-        stage('Build') {
+        stage('SonarQube Analysis') {
+            environment {
+                scannerHome = tool 'SonarQubeScanner'
+            }
+
             steps {
-                sh 'npm --version'
+                withSonarQubeEnv('SonarQube') {
+                    sh "${scannerHome}/bin/sonar-scanner"
+                }
+
+                timeout(time: 12, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
+        stage('Build') {
+            agent { docker { image 'node:6.3' } }
+            steps {
+                sh 'npm install'
+            }
+        }
+        stage('Package Build') {
+            steps {
+                script {
+                    app = docker.build("kmccab206/coursework2")
+                }
+            }
+        }
+        stage('Push Build') {
+            steps {
+                script {
+                    docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-credentials') {
+                        app.push("${env.BUILD_NUMBER}")
+                        app.push("latest")
+                    }
+                }
             }
         }
     }
