@@ -21,8 +21,11 @@ pipeline {
         }
         stage('Build') {
             //Build stage where the project is built
-            echo 'Starting Build stage...'
             agent { docker { image 'node:6.3' } }
+            steps {
+                echo "Starting Project Build... "
+                sh 'npm install'
+            }
         }
         stage('Package Build') {
             //Package stage, using Docker to package the build (create a docker image)
