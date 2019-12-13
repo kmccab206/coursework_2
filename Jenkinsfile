@@ -6,7 +6,7 @@ pipeline {
         stage('SonarQube Static Analysis') {
             environment {
                 echo 'Starting static code analysis (SonarQube)...' //Print out the start of the stage
-                sqscanner = tool 'SonarQubeScanner'
+                    sqscanner = tool 'SonarQubeScanner'
             }
 
             steps {
@@ -24,7 +24,7 @@ pipeline {
             agent { docker { image 'node:6.3' } }
             steps {
                 echo 'Starting Project Build...'
-                sh 'npm install'
+                    sh 'npm install'
             }
         }
         stage('Package Build') {
@@ -32,7 +32,7 @@ pipeline {
             steps {
                 script {
                     echo 'Starting Packaging with Docker...'
-                    app = docker.build("kmccab206/coursework2")
+                        app = docker.build("kmccab206/coursework2")
                 }
             }
         }
