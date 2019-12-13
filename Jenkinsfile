@@ -5,12 +5,12 @@ pipeline {
         //Using SonarQube for static code analysis here
         stage('SonarQube Static Analysis') {
             environment {
-                echo 'Starting static code analysis (SonarQube)...' //Print out the start of the stage
                 sqscanner = tool 'SonarQubeScanner'
             }
 
             steps {
                 withSonarQubeEnv('SonarQube') {
+                    echo 'Starting static code analysis (SonarQube)...'
                     sh "${sqscanner}/bin/sonar-scanner"
                 }
 
